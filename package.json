@@ -1,0 +1,24 @@
+{
+  "name": "devsecops-bearer-api",
+  "version": "1.0.0",
+  "description": "API REST demostrativa para escaneo SAST con Bearer y despliegue automatizado",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "devsecops",
+    "bearer",
+    "sast",
+    "express",
+    "security"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

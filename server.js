@@ -20,13 +20,13 @@ app.get('/', (req, res) => {
   res.json({
     status: 'online',
     project: 'DevSecOps Bearer SAST Demo',
-    description: 'API demostrativa para análisis de vulnerabilidades con Bearer CLI en CI/CD',
+    description: 'API demostrativa para anÃ¡lisis de vulnerabilidades con Bearer CLI en CI/CD',
     timestamp: new Date().toISOString(),
     endpoints: [
-      { method: 'GET', path: '/', description: 'Información general de la API' },
+      { method: 'GET', path: '/', description: 'InformaciÃ³n general de la API' },
       { method: 'GET', path: '/health', description: 'Health check para la nube' },
       { method: 'GET', path: '/api/users', description: 'Listado de usuarios' },
-      { method: 'POST', path: '/api/login', description: 'Endpoint de autenticación' }
+      { method: 'POST', path: '/api/login', description: 'Endpoint de autenticaciÃ³n' }
     ]
   });
 });
@@ -41,28 +41,28 @@ app.get('/api/users', (req, res) => {
   res.json({ success: true, count: users.length, data: users });
 });
 
-// Ruta 4: Login con patrón vulnerable detectable por Bearer (Fuga de PII / Logging inseguro)
-// Bearer analiza el flujo de datos sensibles y alerta cuando contraseñas o PII se envían a logs no seguros
+// Ruta 4: Login con patrÃ³n vulnerable detectable por Bearer (Fuga de PII / Logging inseguro)
+// Bearer analiza el flujo de datos sensibles y alerta cuando contraseÃ±as o PII se envÃ­an a logs no seguros
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email y contraseña requeridos' });
+    return res.status(400).json({ error: 'Email y contraseÃ±a requeridos' });
   }
 
-  // ALERTA SAST: Imprimir contraseñas y PII en logs estándar (CWE-532 / Insecure logging)
-  console.log(`[AUTH-LOG] Intento de login para usuario: ${email} con credencial: ${password}`);
+  // ALERTA SAST: Imprimir contraseÃ±as y PII en logs estÃ¡ndar (CWE-532 / Insecure logging)
+  console.log("[AUTH-LOG] Intento de login");
 
   const user = users.find(u => u.email === email);
   if (user && password === 'admin123') {
     return res.json({
-      message: 'Autenticación exitosa',
+      message: 'AutenticaciÃ³n exitosa',
       token: 'jwt-simulated-token-bearer-demo',
       user: { id: user.id, email: user.email, name: user.name }
     });
   }
 
-  return res.status(401).json({ error: 'Credenciales inválidas' });
+  return res.status(401).json({ error: 'Credenciales invÃ¡lidas' });
 });
 
 // Iniciar servidor
